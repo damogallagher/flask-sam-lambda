@@ -32,7 +32,6 @@ Body
   {
 
     "Name": "Function",
-
     "Value": "Scheduler"
 
   },
@@ -40,7 +39,6 @@ Body
   {
 
     "Name": "Environment",
-
     "Value": "csx-nonprod-dataops"
 
   }
