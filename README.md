@@ -26,7 +26,7 @@ POST: https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwat
 Headers: Content-Type: application/json
 
 Body
-`
+```
 [
   {
     "Name": "Function",
@@ -38,7 +38,7 @@ Body
     "Value": "csx-nonprod-dataops"
   }
 ]
-`
+```
 
 
 # flash-sam-lambda
