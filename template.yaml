@@ -52,11 +52,16 @@ Resources:
           Properties:
             Path: /fetch-s3-buckets
             Method: get
+        FetchSpecificCloudWatchMetrics:
+          Type: Api
+          Properties:
+            Path: /fetch-specific-cloudwatch-metrics
+            Method: get      
         FetchCloudWatchMetrics:
           Type: Api
           Properties:
             Path: /fetch-cloudwatch-metrics
-            Method: get            
+            Method: post                     
   
 
 

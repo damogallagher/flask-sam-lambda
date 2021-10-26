@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "d25979e7-c969-4ecb-85c4-e2d9e295e37f",
+		"name": "CSX Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "gJvfHI6ImB4565ZTgGlnn9NPi57GxPw5FAAMtrG7",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"urgent\": \"emergencyASAP\",\n  \"dateOfSightTest\": \"2019-08-24\",\n  \"dateOfReferral\": \"2019-08-24\",\n  \"patient\": {\n    \"NHSNumber\": \"1234567890\",\n    \"name\": {\n      \"prefix\": 1,\n      \"given\": \"Jane\",\n      \"family\": \"Jones\",\n      \"fullName\": \"\"\n    },\n    \"gender\": \"female\",\n    \"address\": {\n      \"line\": [\n        \"1 The Road\",\n        \"Wetherby\",\n        \"North Yorkshire\"\n      ],\n      \"postcode\": \"LS10 1JR\"\n    },\n    \"telephone\": \"01937 123456\",\n    \"mobile\": \"07545 123456\",\n    \"email\": \"j.jones@nowhere.com\",\n    \"dateOfBirth\": \"1997-08-11\"\n  },\n  \"reasonForReferral\": \"string\",\n  \"guardian\": {\n    \"name\": {\n      \"prefix\": \"Mr\",\n      \"given\": \"Harry\",\n      \"family\": \"Jones\",\n      \"fullName\": \"\"\n    },\n    \"address\": {\n      \"line\": [\n        \"1 Station Road\",\n        \"Leeds\"\n      ],\n      \"postcode\": \"LS15 8DT\"\n    }\n  },\n  \"referrer\": {\n    \"GOCNumber\": \"string\",\n    \"name\": {\n      \"text\": \"Gosia Daria\"\n    },\n    \"practice\": {\n      \"ODSCode\": \"G7H8J\",\n      \"name\": \"The Eyecare Practice\",\n      \"address\": {\n        \"line\": [\n          \"Floor 2\",\n          \"Poppleton Court\",\n          \"George Street\",\n          \"Wakefield\"\n        ],\n        \"postcode\": \"WF1 1AA\"\n      },\n      \"email\": \"gdaria@theeyecarepracticewakefield.co.uk\",\n      \"telephone\": \"01924 567890\"\n    }\n  },\n  \"GP\": {\n    \"name\": {\n      \"prefix\": \"Mr\",\n      \"given\": \"Harry\",\n      \"family\": \"Jones\",\n      \"fullName\": \"\"\n    },\n    \"practice\": {\n      \"ODSCode\": \"G7A9I\",\n      \"name\": \"The Practice\",\n      \"address\": {\n        \"line\": [\n          \"1 Station Road\",\n          \"Leeds\"\n        ],\n        \"postcode\": \"LS15 8DT\"\n      },\n      \"email\": \"reception@theleedsexamplepractice.nhs.uk\",\n      \"telephone\": \"0113 212 3456\"\n    }\n  },\n  \"GPAction\": \"informationOnly\",\n  \"referTo\": {\n    \"adultClinic\": \"cataract\"\n  },\n  \"clinicalTerms\": [\n    \"string\"\n  ],\n  \"refraction\": {\n    \"left\": {\n      \"sphere\": -2,\n      \"cylinder\": 0.75,\n      \"axis\": 70,\n      \"nearPrism\": {\n        \"in\": 1\n      },\n      \"distancePrism\": {\n        \"in\": 1.25,\n        \"down\": 0.75\n      },\n      \"VA\": \"6/5\",\n      \"pinhole\": \"6/6\",\n      \"add\": 1.75,\n      \"nearVision\": \"n5\",\n      \"previousCorrectedVA\": \"6/9-3\",\n      \"previousCorrectedVADate\": \"2019-08-24\",\n      \"unaidedVision\": \"6/18-2\"\n    },\n    \"right\": {\n      \"sphere\": -2,\n      \"cylinder\": 0.75,\n      \"axis\": 70,\n      \"nearPrism\": {\n        \"in\": 1\n      },\n      \"distancePrism\": {\n        \"in\": 1.25,\n        \"down\": 0.75\n      },\n      \"VA\": \"6/5\",\n      \"pinhole\": \"6/6\",\n      \"add\": 1.75,\n      \"nearVision\": \"n5\",\n      \"previousCorrectedVA\": \"6/9-3\",\n      \"previousCorrectedVADate\": \"2019-08-24\",\n      \"unaidedVision\": \"6/18-2\"\n    }\n  },\n  \"additionalClinicalFindings\": {\n    \"intraocularPressureTime\": \"14:15:22Z\",\n    \"tonometerUsed\": \"string\",\n    \"fieldsInstrumentUsed\": \"string\",\n    \"left\": {\n      \"visualField\": \"normal\",\n      \"cdRatio\": 0.3,\n      \"opticDiscAppearance\": \"Pink and healthy\",\n      \"averageIntraocularPressure\": \"12\"\n    },\n    \"right\": {\n      \"visualField\": \"normal\",\n      \"cdRatio\": 0.3,\n      \"opticDiscAppearance\": \"Pink and healthy\",\n      \"averageIntraocularPressure\": \"12\"\n    }\n  },\n  \"cycloplegicRefraction\": true,\n  \"dilatedFundusExamination\": true,\n  \"additionalInformation\": \"string\",\n  \"pmsWebhookCallback\": \"http://example.com\"\n}"
+				},
+				"url": {
+					"raw": "https://gos18api.evonnect.com/test/ocuco",
+					"protocol": "https",
+					"host": [
+						"gos18api",
+						"evonnect",
+						"com"
+					],
+					"path": [
+						"test",
+						"ocuco"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch-specific-cloudwatch-metrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-specific-cloudwatch-metrics",
+					"protocol": "https",
+					"host": [
+						"5j1q4mnrt8",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"fetch-specific-cloudwatch-metrics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch-cloudwatch-metrics",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n                            {\n                              \"Name\": \"Function\",\n                              \"Value\": \"Scheduler\"\n                            },\n                            {\n                              \"Name\": \"Environment\",\n                              \"Value\": \"csx-nonprod-dataops\"\n                            }\n                        ]"
+				},
+				"url": {
+					"raw": "https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=SchedulerHeartbeat&period=3660&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0",
+					"protocol": "https",
+					"host": [
+						"5j1q4mnrt8",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"fetch-cloudwatch-metrics"
+					],
+					"query": [
+						{
+							"key": "namespace",
+							"value": "AmazonMWAA"
+						},
+						{
+							"key": "metricName",
+							"value": "SchedulerHeartbeat"
+						},
+						{
+							"key": "period",
+							"value": "3660"
+						},
+						{
+							"key": "stat",
+							"value": "Sum"
+						},
+						{
+							"key": "label",
+							"value": "TempLabel"
+						},
+						{
+							"key": "scanBy",
+							"value": "TimestampDescending"
+						},
+						{
+							"key": "previousDays",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

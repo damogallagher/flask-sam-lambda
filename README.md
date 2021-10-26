@@ -7,10 +7,29 @@ sam deploy --stack-name flask-sam-lambda \
 
 # Deploy to AWS Lambda (Subsequent times)
 sam build --profile csx --region us-east-1
-sam deploy 
+sam deploy
 
 # Destroy infrastructure
-cdk deploy --auto-approve --profile csx
+sam delete --no-prompts --profile csx
+
+## Sample request
+Get hardcoded metrics
+GET:  https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-specific-cloudwatch-metrics
+
+Get user specifed metrics - everything but namespace and metricName are optional
+POST: https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=SchedulerHeartbeat&period=3660&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0
+Headers: Content-Type: application/json
+Body
+[
+  {
+    "Name": "Function",
+    "Value": "Scheduler"
+  },
+  {
+    "Name": "Environment",
+    "Value": "csx-nonprod-dataops"
+  }
+]
 
 
 # flash-sam-lambda
