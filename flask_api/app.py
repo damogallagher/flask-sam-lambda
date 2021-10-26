@@ -90,8 +90,7 @@ def fetch_cloudwatch_metrics():
 
     yesterday=date.today() - timedelta(days=previousDays)
     tomorrow=date.today() + timedelta(days=1)
-    print("yesterday:" + str(yesterday))
-    print("tomorrow:" + str(tomorrow))
+
     client = boto3.client('cloudwatch')
     response = client.get_metric_data(
         MetricDataQueries=[
