@@ -1,0 +1,28 @@
+<html>
+
+<head>
+<script type="text/javascript">
+//const endpoint = 'https://0zwxxxocgi.execute-api.us-east-1.amazonaws.com/Prod/fetch-specific-cloudwatch-metrics';
+//const endpoint = 'https://ux66tf7a72.execute-api.us-east-1.amazonaws.com/Prod/fetch-specific-cloudwatch-metrics';
+const endpoint = 'https://ux66tf7a72.execute-api.us-east-1.amazonaws.com/Prod/hello';
+
+console.log(endpoint)
+fetch(endpoint, {
+    mode: 'no-cors'
+}).then(function(response) {
+    console.log('response:', response);
+    console.log('response:', response.body);
+    console.log('response:', response.text());
+    return response.text();
+}).then(function(text) {
+    console.log('Request successful', text);
+}).catch(function(error) {
+    console.log("ERROR")
+    console.log(error);
+});
+</script>
+</head>
+<body>
+Hello
+</body>
+</html>

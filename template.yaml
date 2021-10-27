@@ -2,7 +2,6 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
   This is a SAM template for the flash-sam-lambda functionality
-
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -19,7 +18,8 @@ Parameters:
     Default: Prod
 
 Resources:
-  FlaskAPI:
+
+  FlaskApi:
     Type: AWS::Serverless::Api
     Properties:
       StageName: !Ref ExecEnv
@@ -28,6 +28,7 @@ Resources:
         AllowHeaders: "'*'"
         AllowOrigin: "'*'"
         MaxAge: "'600'"
+
   FlaskFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -56,35 +57,35 @@ Resources:
           Properties:
             Path: /hello
             Method: get
-            RestApiId: !Ref FlaskAPI
+            RestApiId: !Ref FlaskApi
         FetchBuckets:
           Type: Api
           Properties:
             Path: /fetch-s3-buckets
             Method: get
-            RestApiId: !Ref FlaskAPI            
+            RestApiId: !Ref FlaskApi            
         FetchSpecificCloudWatchMetrics:
           Type: Api
           Properties:
             Path: /fetch-specific-cloudwatch-metrics
-            Method: get  
-            RestApiId: !Ref FlaskAPI                
+            Method: get      
+            RestApiId: !Ref FlaskApi            
         FetchCloudWatchMetrics:
           Type: Api
           Properties:
             Path: /fetch-cloudwatch-metrics
-            Method: post   
-            RestApiId: !Ref FlaskAPI                              
+            Method: post
+            RestApiId: !Ref FlaskApi                          
   
 
 
 Outputs:
-  # FlaskAPI is an implicit API created out of Events key under Serverless::Function
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   FlaskAPI:
     Description: "API Gateway endpoint URL for Prod stage for Flask SAM Lambda function"
-    Value: !Sub "https://${FlaskAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
+    Value: !Sub "https://${FlaskApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
   FlaskFunction:
     Description: "Flask SAM Lambda Lambda Function ARN"
     Value: !GetAtt FlaskFunction.Arn
