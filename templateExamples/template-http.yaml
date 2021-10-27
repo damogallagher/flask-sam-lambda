@@ -1,0 +1,104 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  This is a SAM template for the flash-sam-lambda functionality
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 10
+
+Parameters:
+  ExecEnv:
+    Type: String
+    AllowedValues:
+      - local
+      - dev
+      - stage
+      - Prod
+    Default: Prod
+
+Resources:
+  HttpApi:
+    FlaskAPI: AWS::Serverless::HttpApi
+    Properties:
+      StageName: !Ref ExecEnv
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: 200
+      RouteSettings:
+        "GET /hello":
+          ThrottlingBurstLimit: 500 # overridden in HttpApi Event
+      FailOnWarnings: true
+      Cors:
+        AllowMethods: "'*'"
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+        MaxAge: "'600'"
+
+  FlaskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: flask_api/
+      Handler: app.app
+      Runtime: python3.9
+      Environment:
+        Variables:
+          REGION_NAME: !Ref AWS::Region
+          EXEC_ENV: !Ref ExecEnv
+      Policies:
+      - Statement:
+        - Sid: S3Permissions
+          Effect: Allow
+          Action:
+          - s3:ListAllMyBuckets
+          Resource: '*'
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:GetMetricData"
+          Resource: '*'
+      Events:
+        SayHello:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref FlaskAPI
+            Path: /hello
+            Method: get
+            TimeoutInMillis: 15000
+            PayloadFormatVersion: "2.0"
+            RouteSettings:
+            ThrottlingBurstLimit: 600            
+        FetchBuckets:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref FlaskAPI          
+            Path: /fetch-s3-buckets
+            Method: get         
+        FetchSpecificCloudWatchMetrics:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref FlaskAPI
+            Path: /fetch-specific-cloudwatch-metrics
+            Method: get                 
+        FetchCloudWatchMetrics:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref FlaskAPI          
+            Path: /fetch-cloudwatch-metrics
+            Method: post                                
+  
+
+
+Outputs:
+  # FlaskAPI is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  FlaskAPI:
+    Description: "API Gateway endpoint URL for Prod stage for Flask SAM Lambda function"
+    Value: !Sub "https://${FlaskAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
+  FlaskFunction:
+    Description: "Flask SAM Lambda Lambda Function ARN"
+    Value: !GetAtt FlaskFunction.Arn
+  FlaskFunctionIamRole:
+    Description: "Implicit IAM Role created for Flask SAM Lambda function"
+    Value: !GetAtt FlaskFunctionRole.Arn
