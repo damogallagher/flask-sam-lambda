@@ -9,5 +9,5 @@ region = "us-east-1"
 profile = "csx"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-parameter_overrides = "ExecEnv=\"prod\""
+parameter_overrides = "ExecEnv=\"Prod\""
 image_repositories = []

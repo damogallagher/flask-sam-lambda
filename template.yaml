@@ -15,10 +15,19 @@ Parameters:
       - local
       - dev
       - stage
-      - prod
-    Default: prod
+      - Prod
+    Default: Prod
 
 Resources:
+  FlaskAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref ExecEnv
+      Cors:
+        AllowMethods: "'*'"
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+        MaxAge: "'600'"
   FlaskFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -47,31 +56,35 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+            RestApiId: !Ref FlaskAPI
         FetchBuckets:
           Type: Api
           Properties:
             Path: /fetch-s3-buckets
             Method: get
+            RestApiId: !Ref FlaskAPI            
         FetchSpecificCloudWatchMetrics:
           Type: Api
           Properties:
             Path: /fetch-specific-cloudwatch-metrics
-            Method: get      
+            Method: get  
+            RestApiId: !Ref FlaskAPI                
         FetchCloudWatchMetrics:
           Type: Api
           Properties:
             Path: /fetch-cloudwatch-metrics
-            Method: post                     
+            Method: post   
+            RestApiId: !Ref FlaskAPI                              
   
 
 
 Outputs:
-  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # FlaskAPI is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   FlaskAPI:
     Description: "API Gateway endpoint URL for Prod stage for Flask SAM Lambda function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
+    Value: !Sub "https://${FlaskAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
   FlaskFunction:
     Description: "Flask SAM Lambda Lambda Function ARN"
     Value: !GetAtt FlaskFunction.Arn
