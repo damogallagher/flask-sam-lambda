@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  This is a SAM template for the flash-sam-lambda functionality
+  This is a SAM template for the flask-sam-lambda functionality
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -24,9 +24,9 @@ Resources:
     Properties:
       StageName: !Ref ExecEnv
       Cors:
-        AllowMethods: "'*'"
+        AllowMethods: "'POST, GET, DELETE, PUT, OPTIONS'"
         AllowHeaders: "'*'"
-        AllowOrigin: "'*'"
+        AllowOrigin: "'http://*, https://*, *'"
         MaxAge: "'600'"
 
   FlaskFunction:

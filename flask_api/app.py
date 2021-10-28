@@ -24,14 +24,32 @@ app = FlaskLambda(__name__)
 
 @app.route('/hello', methods=('GET',))
 def say_hello():
-    return jsonify("Hello World")
+    return {
+        "statusCode": 200,
+        'headers': {
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': '*'
+        },        
+        "body": json.dumps({
+            "message": "Hello World"
+        }),
+    }
 
 @app.route('/fetch-s3-buckets', methods=('GET',))
 def fetch_s3_buckets():
     s3 = boto3.resource('s3')
     buckets = [bucket.name for bucket in s3.buckets.all()]
     print(buckets)
-    return jsonify(buckets)
+    return {
+        "statusCode": 200,
+        'headers': {
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': '*'
+        },        
+        "body": json.dumps(buckets),
+    }
 
 @app.route('/fetch-specific-cloudwatch-metrics', methods=('GET',))
 def fetch_specific_cloudwatch_metrics():
@@ -71,7 +89,15 @@ def fetch_specific_cloudwatch_metrics():
         ScanBy='TimestampDescending',
     )
     print(response)
-    return jsonify(response)   
+    return {
+        "statusCode": 200,
+        'headers': {
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': '*'
+        },
+        "body": json.dumps(response, indent=4, sort_keys=False, default=str),
+    }
 
 @app.route('/fetch-cloudwatch-metrics', methods=('POST',))
 def fetch_cloudwatch_metrics():
@@ -114,4 +140,12 @@ def fetch_cloudwatch_metrics():
         ScanBy=scanBy,
     )
     print(response)
-    return jsonify(response) 
+    return {
+        "statusCode": 200,
+        'headers': {
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': '*'
+        },        
+        "body": json.dumps(response, indent=4, sort_keys=False, default=str),
+    }
